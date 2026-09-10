@@ -1,68 +1,128 @@
-import Image from "next/image";
+import { Logo } from "@/components/brand/logo";
+import { CourseCard } from "@/components/cards/course-card";
+import { LessonCard } from "@/components/cards/lesson-card";
+import { LessonVideoCard } from "@/components/cards/lesson-video-card";
+import { ResourceCard } from "@/components/cards/resource-card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ProgressBar } from "@/components/ui/progress-bar";
+import { SearchInput } from "@/components/ui/search-input";
+import { Select } from "@/components/ui/select";
+import { StatusIndicator } from "@/components/ui/status-indicator";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="flex flex-1 flex-col">
+      <main className="mx-auto flex w-full max-w-5xl flex-col gap-16 px-4 py-16 sm:px-8">
+        {/* Hero */}
+        <section className="flex flex-col gap-4">
+          <p className="text-small font-semibold uppercase tracking-widest text-primary-500">
+            Vertex
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+          <h1 className="text-display-1 text-neutral-900">
+            Learn at the exact moment
+          </h1>
+          <p className="text-body-large max-w-2xl text-neutral-500">
+            Vertex is an AI-powered learning platform. Search a course in plain
+            language and land on the exact second where the topic is taught.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Button>Browse courses</Button>
+            <Button variant="secondary">My learning</Button>
+          </div>
+        </section>
+
+        {/* Search */}
+        <section className="flex flex-col gap-4">
+          <h2 className="text-heading-2 text-neutral-900">Search</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <SearchInput placeholder="Search lessons, chapters, topics…" />
+            <Select label="Sort results by" defaultValue="relevant">
+              <option value="relevant">Most relevant</option>
+              <option value="newest">Newest</option>
+            </Select>
+          </div>
+        </section>
+
+        {/* Cards preview */}
+        <section className="flex flex-col gap-4">
+          <h2 className="text-heading-2 text-neutral-900">Results preview</h2>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <CourseCard
+              logoInitials="Nx"
+              title="Next.js Foundations"
+              description="Build and deploy a full-stack app with the App Router."
+              level="Beginner"
+              duration="4h 20m"
+              modules={6}
+              instructor="Ada Lovelace"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+            <LessonVideoCard
+              title="Fetching in Server Components"
+              description="Async components, cache behavior, and streaming."
+              lessonLabel="Lesson 5.1"
+              duration="12:45"
+              startSeconds={765}
+            />
+            <LessonCard
+              title="Data Fetching and Caching"
+              description="How React Server Components cache and revalidate."
+              moduleLabel="Module 5"
+            />
+            <ResourceCard
+              title="Course slides"
+              description="Slides for every module, in one deck."
+              fileType="PDF"
+              fileSize="1.2 MB"
+            />
+          </div>
+        </section>
+
+        {/* Component sampler */}
+        <section className="flex flex-col gap-4">
+          <h2 className="text-heading-2 text-neutral-900">Components</h2>
+          <div className="flex flex-wrap items-center gap-3">
+            <Badge tone="video">Video</Badge>
+            <Badge tone="lesson">Lesson</Badge>
+            <Badge tone="popular">Popular</Badge>
+          </div>
+          <div className="flex flex-wrap gap-8">
+            <StatusIndicator kind="in-progress" />
+            <StatusIndicator kind="completed" />
+            <StatusIndicator kind="now-playing" />
+            <StatusIndicator kind="locked" />
+          </div>
+          <div className="max-w-md">
+            <ProgressBar value={64} showLabel aria-label="Course progress" />
+          </div>
+          <Card className="max-w-sm p-6">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <Badge tone="popular">Popular</Badge>
+                <span className="text-body font-semibold text-neutral-900">$49</span>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <h3 className="text-heading-3 text-neutral-900">Next.js for Production</h3>
+                <p className="text-body text-neutral-500">
+                  Routing, caching, and server components in production.
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button size="md">View course</Button>
+                <Button size="md" variant="tertiary">
+                  Preview
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </section>
+
+        {/* Footer brand */}
+        <footer className="flex items-center gap-2 border-t border-neutral-200 pt-8">
+          <Logo size={20} />
+          <span className="text-small text-neutral-500">Vertex · Learn at the exact moment</span>
+        </footer>
       </main>
     </div>
   );
